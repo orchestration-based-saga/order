@@ -2,7 +2,7 @@ spring:
   application:
     name: order
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/order
     password: postgres
     username: postgres
   cloud:
@@ -31,8 +31,8 @@ spring:
             linger.ms: 1
       function:
         definition: payment
-        bindings:
-          payment-in-0:
-            destination: payment
-            content-type: application/json
-            group: payment_group
+      bindings:
+        payment-in-0:
+          destination: payment
+          content-type: application/json
+          group: payment_group

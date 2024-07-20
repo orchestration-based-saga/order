@@ -6,7 +6,7 @@ services:
     image: postgres:13.1-alpine
     restart: on-failure
     environment:
-      POSTGRES_DB: postgres
+      POSTGRES_DB: order
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -22,7 +22,7 @@ services:
     ports:
       - "2181:2181"
     volumes:
-      - order-zookeeper-data:/var/lib/zookeper/data
+      - order-zookeeper-data:/var/lib/zookeeper/data
   kafka:
     image: confluentinc/cp-kafka:latest
     depends_on:
