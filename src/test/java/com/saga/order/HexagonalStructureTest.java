@@ -11,9 +11,8 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 public class HexagonalStructureTest {
 
     @Test
-    @Disabled
     public void domain_should_not_depend_on_other_packages() {
-        JavaClasses classes = new ClassFileImporter().importPackages("com.saga.order.main");
+        JavaClasses classes = new ClassFileImporter().importPackages("com.saga.order");
         ArchRule rule = noClasses()
                 .that()
                 .resideInAPackage("..domain..")
