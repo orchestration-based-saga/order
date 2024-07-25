@@ -59,6 +59,15 @@ dependencyManagement {
     }
 }
 
+compileJava {
+    options.compilerArgs = [
+            '-Amapstruct.defaultComponentModel=spring',
+            '-Amapstruct.suppressGeneratorTimestamp=true',
+            '-Amapstruct.suppressGeneratorVersionInfoComment=true',
+            '-Amapstruct.unmappedTargetPolicy=ERROR'
+    ]
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

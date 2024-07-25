@@ -30,9 +30,13 @@ spring:
             buffer.memory: 33554432
             linger.ms: 1
       function:
-        definition: payment
+        definition: payment;orderStatus
       bindings:
         payment-in-0:
           destination: payment
           content-type: application/json
-          group: payment_group
+          group: order_group
+        orderStatus-in-0:
+          destination: order_status
+          content-type: application/json
+          group: order_group
