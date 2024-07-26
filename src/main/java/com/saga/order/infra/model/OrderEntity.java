@@ -5,6 +5,7 @@ import com.saga.order.infra.model.enums.OrderStatus;
 import com.saga.order.infra.model.enums.PaymentMethod;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,11 +14,12 @@ import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "Order")
+@Entity(name = "Orders")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldNameConstants
 @Builder
 public class OrderEntity {
 

@@ -1,4 +1,4 @@
-package com.saga.order.application.messaging;
+package com.saga.order.application.messaging.consumer;
 
 import com.saga.order.application.messaging.api.OrderStatusChange;
 import com.saga.order.application.service.OrderService;

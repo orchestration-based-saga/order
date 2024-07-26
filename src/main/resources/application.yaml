@@ -30,7 +30,7 @@ spring:
             buffer.memory: 33554432
             linger.ms: 1
       function:
-        definition: payment;orderStatus
+        definition: payment;orderStatus;createClaim
       bindings:
         payment-in-0:
           destination: payment
@@ -40,3 +40,6 @@ spring:
           destination: order_status
           content-type: application/json
           group: order_group
+        createClaim-out-0:
+          destination: claim
+          content-type: application/json

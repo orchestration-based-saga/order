@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity(name = "Suborder")
 @Getter
@@ -22,4 +23,6 @@ public class SuborderEntity {
     MerchantProductEntity merchantProduct;
     BigDecimal price;
     Integer amount;
+    @OneToMany(mappedBy = "suborder")
+    Set<SuborderItemEntity> suborderItems;
 }

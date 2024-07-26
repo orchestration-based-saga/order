@@ -44,6 +44,8 @@ dependencies {
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation 'com.cosium.spring.data:spring-data-jpa-entity-graph:3.2.2'
+
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
