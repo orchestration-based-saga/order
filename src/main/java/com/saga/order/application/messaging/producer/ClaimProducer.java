@@ -17,6 +17,6 @@ public class ClaimProducer implements ClaimProducerApi {
     @Override
     public void createClaim(String orderId, Integer itemId, Integer merchantInventoryId) {
         CreateClaim claim = new CreateClaim(orderId, itemId, merchantInventoryId);
-        streamBridge.send(StreamBindingConstants.CLAIM, MessageBuilder.withPayload(claim).build());
+        streamBridge.send(StreamBindingConstants.CREATE_CLAIM, MessageBuilder.withPayload(claim).build());
     }
 }
