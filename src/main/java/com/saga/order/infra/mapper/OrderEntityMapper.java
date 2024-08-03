@@ -30,6 +30,7 @@ public abstract class OrderEntityMapper {
     public abstract OrderEntity toEntity(Order order);
 
     @Mapping(target = "status", source = "orderStatus")
+    @Mapping(target = "suborders", ignore = true)
     public abstract Order toOrderDomain(OrderEntity order);
 
     public abstract Set<Suborder> toSubordersDomain(Set<SuborderEntity> suborders);

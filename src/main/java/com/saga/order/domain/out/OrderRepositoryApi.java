@@ -17,4 +17,6 @@ public interface OrderRepositoryApi {
     Order upsertOrder(Order order);
 
     Set<Suborder> createSuborders(Set<Suborder> suborders);
+
+    Optional<Order> findByOrderId(String orderId);
 }

@@ -1,11 +1,15 @@
 package com.saga.order.application.messaging.api;
 
-import java.math.BigDecimal;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.saga.order.application.messaging.api.enums.TransactionStatus;
+
 import java.util.UUID;
 
-public record PaymentMessage (
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record PaymentMessage(
         UUID id,
-        BigDecimal transactionAmount,
-        BigDecimal paidAmount
-){
+        TransactionStatus status,
+        UUID transactionId,
+        String orderId
+) {
 }

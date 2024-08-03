@@ -29,4 +29,6 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Intege
             """
     )
     Optional<MerchantProductEntity> findByOrderIdAndSuborderItemId(@Param("orderId") String orderId, @Param("itemId") Integer itemId);
+
+    Optional<OrderEntity> findByOrderId(String orderId);
 }

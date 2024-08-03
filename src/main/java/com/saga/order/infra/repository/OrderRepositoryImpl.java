@@ -17,7 +17,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -49,11 +48,16 @@ public class OrderRepositoryImpl implements OrderRepositoryApi {
     public Set<Suborder> createSuborders(Set<Suborder> suborders) {
         Set<SuborderEntity> suborderEntities = new HashSet<>();
         for (Suborder suborder : suborders) {
-            Set<SuborderItemEntity> itemEntities =  orderEntityMapper.toSuborderItemEntities(suborder.items());
+            Set<SuborderItemEntity> itemEntities = orderEntityMapper.toSuborderItemEntities(suborder.items());
             SuborderEntity suborderEntity = orderEntityMapper.mapWithSuborderItems(suborder, itemEntities);
             suborderEntities.add(suborderEntity);
         }
         suborderEntities = new HashSet<>(suborderEntityRepository.saveAll(suborderEntities));
         return orderEntityMapper.toSubordersDomain(suborderEntities);
+    }
+
+    @Override
+    public Optional<Order> findByOrderId(String orderId) {
+        return orderEntityRepository.findByOrderId(orderId).map(orderEntityMapper::toOrderDomain);
     }
 }

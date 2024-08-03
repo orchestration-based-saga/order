@@ -97,4 +97,16 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
         orderProducerApi.send(order);
         return true;
     }
+
+    @Override
+    public void processPayment(Payment payment) {
+        Optional<Order> maybeOrder = orderRepositoryApi.findByOrderId(payment.orderId());
+        if (maybeOrder.isEmpty()) {
+            throw new RuntimeException("Order with id " + payment.orderId() + " not found");
+        }
+        Order order = maybeOrder.get();
+        order = order.updateStatus(OrderDomainStatus.COMPLETED);
+        order = orderRepositoryApi.upsertOrder(order);
+        orderProducerApi.send(order);
+    }
 }
