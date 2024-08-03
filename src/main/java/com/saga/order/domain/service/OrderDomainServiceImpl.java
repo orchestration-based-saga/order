@@ -84,9 +84,9 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
             Set<SuborderItem> suborderItems = new HashSet<>();
             for (Product product : products) {
                 totalPriceOfSuborder = totalPriceOfSuborder.add(product.price());
-                suborderItems.add(new SuborderItem(product.merchantInventoryId()));
+                suborderItems.add(new SuborderItem(null, product.merchantInventoryId()));
             }
-            suborders.add(new Suborder(null, totalPriceOfSuborder, order, suborderItems));
+            suborders.add(new Suborder(null, totalPriceOfSuborder, order, suborderItems, productsOfMerchant.getKey()));
             total = total.add(totalPriceOfSuborder);
         }
         suborders = orderRepositoryApi.createSuborders(suborders);

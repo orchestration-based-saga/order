@@ -1,6 +1,8 @@
 package com.saga.order.application.messaging.producer;
 
+import com.saga.order.application.mapper.OrderResponseMapper;
 import com.saga.order.application.messaging.api.CreateClaim;
+import com.saga.order.application.messaging.api.OrderMessage;
 import com.saga.order.domain.model.Order;
 import com.saga.order.domain.out.OrderProducerApi;
 import com.saga.order.infra.common.event.StreamBindingConstants;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class OrderProducer implements OrderProducerApi {
 
     private final StreamBridge streamBridge;
+    private final OrderResponseMapper orderResponseMapper;
 
     @Override
     public void createClaim(String orderId, Integer itemId, Integer merchantInventoryId) {
@@ -23,6 +26,7 @@ public class OrderProducer implements OrderProducerApi {
 
     @Override
     public void send(Order order) {
-        streamBridge.send(StreamBindingConstants.ORDER, MessageBuilder.withPayload(order).build());
+        OrderMessage orderMessage = orderResponseMapper.toMessage(order);
+        streamBridge.send(StreamBindingConstants.ORDER, MessageBuilder.withPayload(orderMessage).build());
     }
 }

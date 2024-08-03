@@ -22,6 +22,8 @@ public class SuborderEntity {
     private BigDecimal price;
     @OneToMany(mappedBy = "suborder", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SuborderItemEntity> suborderItems = new HashSet<>();
+    @OneToOne
+    private MerchantEntity merchant;
 
     public void addSuborderItem(SuborderItemEntity suborderItem) {
         suborderItem.setSuborder(this);

@@ -1,0 +1,1 @@
+alter table suborder add column merchant_id integer references merchant(id) not null default 1;

@@ -7,6 +7,7 @@ public record Suborder(
         Integer id,
         BigDecimal price,
         Order order,
-        Set<SuborderItem> items
+        Set<SuborderItem> items,
+        Merchant merchant
 ) {
 }
