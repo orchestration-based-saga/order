@@ -1,5 +1,6 @@
 package com.saga.order.application.service;
 
+import com.saga.order.application.controller.api.request.CreateOrderRequest;
 import com.saga.order.application.controller.api.request.ServiceableItemRequest;
 import com.saga.order.application.controller.api.response.ServiceScheduledResponse;
 import com.saga.order.application.mapper.OrderResponseMapper;
@@ -23,5 +24,9 @@ public class OrderService {
             return new ServiceScheduledResponse("Item isn't serviceable", false);
         }
         return new ServiceScheduledResponse("Item servicing scheduled", true);
+    }
+
+    public boolean createOrder(CreateOrderRequest request) {
+        return orderDomainServiceApi.createOrder(orderResponseMapper.toDomain(request));
     }
 }

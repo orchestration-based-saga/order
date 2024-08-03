@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,19 +22,18 @@ import java.util.UUID;
 @NoArgsConstructor
 @FieldNameConstants
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    @OneToOne
-    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
-    MerchantEntity merchant;
     UUID customerId;
     String orderId;
     @OneToMany(mappedBy = "order")
     Set<SuborderEntity> suborders;
     @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     OrderStatus orderStatus;
     @Enumerated(EnumType.STRING)
     PaymentMethod paymentMethod;
@@ -41,8 +41,10 @@ public class OrderEntity {
     @Enumerated(EnumType.STRING)
     Currency currency;
     @CreatedDate
+    @Column(name = "created_at")
     LocalDateTime createdAt;
     @LastModifiedDate
+    @Column(name = "modified_at")
     LocalDateTime modifiedAt;
     LocalDateTime confirmedAt;
     LocalDateTime packedAt;

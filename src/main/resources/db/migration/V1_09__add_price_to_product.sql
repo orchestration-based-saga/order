@@ -1,0 +1,1 @@
+alter table merchant_product add column if not exists price numeric(15, 2) not null default 0;

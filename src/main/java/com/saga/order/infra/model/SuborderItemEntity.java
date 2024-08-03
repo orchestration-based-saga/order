@@ -14,7 +14,9 @@ public class SuborderItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
-    Integer merchantInventoryId;
+    @OneToOne
+    @JoinColumn(name = "merchant_inventory_id", referencedColumnName = "merchant_inventory_id")
+    MerchantProductEntity merchantProduct;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "suborder_id", referencedColumnName = "id")
     SuborderEntity suborder;

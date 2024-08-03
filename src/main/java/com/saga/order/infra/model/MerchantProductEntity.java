@@ -2,6 +2,9 @@ package com.saga.order.infra.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
+
+import java.math.BigDecimal;
 
 @Entity(name = "MerchantProduct")
 @Getter
@@ -9,12 +12,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@FieldNameConstants
 public class MerchantProductEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "merchant_inventory_id")
     Integer merchantInventoryId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "merchant_id", referencedColumnName = "id")
+    MerchantEntity merchant;
     String name;
     String description;
     String ean;
@@ -28,4 +35,5 @@ public class MerchantProductEntity {
     MerchantAddressEntity returnAddress;
     Integer stockLevel;
     Integer reservedLevel;
+    BigDecimal price;
 }

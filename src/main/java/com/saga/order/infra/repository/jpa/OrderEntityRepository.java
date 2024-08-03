@@ -22,9 +22,9 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Intege
     @Query("""
                 SELECT p
                 FROM MerchantProduct p
-                JOIN Suborder s ON s.merchantProduct.merchantInventoryId = p.merchantInventoryId
+                JOIN SuborderItem si ON si.merchantProduct.merchantInventoryId = p.merchantInventoryId
+                JOIN Suborder s ON s.id = si.suborder.id
                 JOIN Orders o ON o.id = s.order.id
-                JOIN SuborderItem si ON si.suborder.id = s.id
                 WHERE si.id = :itemId AND o.orderId = :orderId
             """
     )

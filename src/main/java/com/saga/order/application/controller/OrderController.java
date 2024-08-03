@@ -1,5 +1,6 @@
 package com.saga.order.application.controller;
 
+import com.saga.order.application.controller.api.request.CreateOrderRequest;
 import com.saga.order.application.controller.api.request.ServiceableItemRequest;
 import com.saga.order.application.controller.api.response.ServiceScheduledResponse;
 import com.saga.order.application.service.OrderService;
@@ -20,5 +21,14 @@ public class OrderController {
     public ResponseEntity<ServiceScheduledResponse> serviceItem(@RequestBody ServiceableItemRequest request){
         ServiceScheduledResponse response = orderService.scheduleItemServicing(request);
         return ResponseEntity.ok().body(response);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Void> createOrder(@RequestBody CreateOrderRequest request) {
+        boolean successful = orderService.createOrder(request);
+        if (!successful) {
+            return ResponseEntity.internalServerError().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }
