@@ -3,6 +3,8 @@ package com.saga.order.infra.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity(name = "Merchant")
 @Getter
 @Setter
@@ -14,6 +16,7 @@ public class MerchantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
+    UUID userId;
     String tin;
     String name;
     @OneToOne

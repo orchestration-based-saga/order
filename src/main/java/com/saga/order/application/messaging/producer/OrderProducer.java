@@ -11,6 +11,8 @@ import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class OrderProducer implements OrderProducerApi {
@@ -19,8 +21,8 @@ public class OrderProducer implements OrderProducerApi {
     private final OrderResponseMapper orderResponseMapper;
 
     @Override
-    public void createClaim(String orderId, Integer itemId, Integer merchantInventoryId) {
-        CreateClaim claim = new CreateClaim(orderId, itemId, merchantInventoryId);
+    public void createClaim(String orderId, Integer itemId, Integer merchantInventoryId, UUID customerId, UUID recipientId) {
+        CreateClaim claim = new CreateClaim(orderId, itemId, merchantInventoryId, customerId, recipientId);
         streamBridge.send(StreamBindingConstants.CREATE_CLAIM, MessageBuilder.withPayload(claim).build());
     }
 

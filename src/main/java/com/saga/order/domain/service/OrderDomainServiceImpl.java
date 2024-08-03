@@ -29,13 +29,19 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
     @Override
     public boolean itemServicing(String orderId, Integer itemId) {
         Optional<Product> maybeProduct = orderRepositoryApi.findByOrderIdAndItemId(orderId, itemId);
-        if (maybeProduct.isEmpty()) {
+        Optional<Order> maybeOrder = orderRepositoryApi.findByOrderId(orderId);
+        if (maybeProduct.isEmpty() || maybeOrder.isEmpty()) {
             return false;
         }
         if (!maybeProduct.get().serviceable()) {
             return false;
         }
-        orderProducerApi.createClaim(orderId, itemId, maybeProduct.get().merchantInventoryId());
+        orderProducerApi.createClaim(
+                orderId,
+                itemId,
+                maybeProduct.get().merchantInventoryId(),
+                maybeOrder.get().customerId(),
+                maybeProduct.get().merchant().userId());
         return true;
     }
 
