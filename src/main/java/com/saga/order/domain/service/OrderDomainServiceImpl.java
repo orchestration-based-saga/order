@@ -1,6 +1,5 @@
 package com.saga.order.domain.service;
 
-import com.saga.order.domain.BasketItem;
 import com.saga.order.domain.in.OrderDomainServiceApi;
 import com.saga.order.domain.model.*;
 import com.saga.order.domain.model.enums.OrderDomainStatus;
@@ -9,7 +8,6 @@ import com.saga.order.domain.out.OrderProducerApi;
 import com.saga.order.domain.out.OrderRepositoryApi;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -46,7 +44,6 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
     }
 
     @Override
-    @Transactional
     public boolean createOrder(CreateOrder orderRequest) {
         // group basket by merchant id
         Map<Merchant, List<Product>> productsGroupedByMerchant = new HashMap<>();

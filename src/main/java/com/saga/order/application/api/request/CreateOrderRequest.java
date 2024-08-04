@@ -1,6 +1,6 @@
-package com.saga.order.application.controller.api.request;
+package com.saga.order.application.api.request;
 
-import com.saga.order.domain.BasketItem;
+import com.saga.order.domain.model.BasketItem;
 
 import java.util.Set;
 import java.util.UUID;

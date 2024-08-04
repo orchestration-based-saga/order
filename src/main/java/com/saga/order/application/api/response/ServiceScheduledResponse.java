@@ -1,4 +1,4 @@
-package com.saga.order.application.controller.api.response;
+package com.saga.order.application.api.response;
 
 public record ServiceScheduledResponse(
         String message,

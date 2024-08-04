@@ -1,6 +1,6 @@
 package com.saga.order.application.messaging.consumer;
 
-import com.saga.order.application.messaging.api.OrderStatusChange;
+import com.saga.order.application.api.event.OrderStatusChange;
 import com.saga.order.application.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

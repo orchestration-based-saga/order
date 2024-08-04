@@ -1,4 +1,4 @@
-package com.saga.order.domain;
+package com.saga.order.domain.model;
 
 public record BasketItem(
         Integer merchantInventoryId,

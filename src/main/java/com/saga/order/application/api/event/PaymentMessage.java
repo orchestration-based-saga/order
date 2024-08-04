@@ -1,7 +1,7 @@
-package com.saga.order.application.messaging.api;
+package com.saga.order.application.api.event;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.saga.order.application.messaging.api.enums.TransactionStatus;
+import com.saga.order.application.api.enums.TransactionStatus;
 
 import java.util.UUID;
 

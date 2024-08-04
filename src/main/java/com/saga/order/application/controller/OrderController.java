@@ -1,8 +1,8 @@
 package com.saga.order.application.controller;
 
-import com.saga.order.application.controller.api.request.CreateOrderRequest;
-import com.saga.order.application.controller.api.request.ServiceableItemRequest;
-import com.saga.order.application.controller.api.response.ServiceScheduledResponse;
+import com.saga.order.application.api.request.CreateOrderRequest;
+import com.saga.order.application.api.request.ServiceableItemRequest;
+import com.saga.order.application.api.response.ServiceScheduledResponse;
 import com.saga.order.application.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

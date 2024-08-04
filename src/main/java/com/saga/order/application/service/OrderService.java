@@ -1,13 +1,14 @@
 package com.saga.order.application.service;
 
-import com.saga.order.application.controller.api.request.CreateOrderRequest;
-import com.saga.order.application.controller.api.request.ServiceableItemRequest;
-import com.saga.order.application.controller.api.response.ServiceScheduledResponse;
+import com.saga.order.application.api.request.CreateOrderRequest;
+import com.saga.order.application.api.request.ServiceableItemRequest;
+import com.saga.order.application.api.response.ServiceScheduledResponse;
 import com.saga.order.application.mapper.OrderResponseMapper;
-import com.saga.order.application.messaging.api.OrderStatusChange;
+import com.saga.order.application.api.event.OrderStatusChange;
 import com.saga.order.domain.in.OrderDomainServiceApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class OrderService {
         return new ServiceScheduledResponse("Item servicing scheduled", true);
     }
 
+    @Transactional
     public boolean createOrder(CreateOrderRequest request) {
         return orderDomainServiceApi.createOrder(orderResponseMapper.toDomain(request));
     }

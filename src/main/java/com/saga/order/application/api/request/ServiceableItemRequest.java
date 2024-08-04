@@ -1,4 +1,4 @@
-package com.saga.order.application.controller.api.request;
+package com.saga.order.application.api.request;
 
 public record ServiceableItemRequest(
         String orderId,

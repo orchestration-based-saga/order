@@ -1,4 +1,4 @@
-package com.saga.order.application.messaging.api;
+package com.saga.order.application.api.event;
 
 import com.saga.order.domain.model.Order;
 import com.saga.order.domain.model.SuborderItem;

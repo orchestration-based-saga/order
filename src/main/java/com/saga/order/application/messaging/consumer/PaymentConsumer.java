@@ -1,7 +1,7 @@
 package com.saga.order.application.messaging.consumer;
 
 import com.saga.order.application.mapper.OrderResponseMapper;
-import com.saga.order.application.messaging.api.PaymentMessage;
+import com.saga.order.application.api.event.PaymentMessage;
 import com.saga.order.domain.in.OrderDomainServiceApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

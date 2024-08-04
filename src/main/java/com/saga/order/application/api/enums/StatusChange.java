@@ -1,4 +1,4 @@
-package com.saga.order.application.messaging.api.enums;
+package com.saga.order.application.api.enums;
 
 public enum StatusChange {
     CANCELLED,

@@ -1,4 +1,4 @@
-package com.saga.order.application.messaging.api;
+package com.saga.order.application.api.event;
 
 public record SuborderItemMessage(
         Integer id,

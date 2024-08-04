@@ -1,8 +1,8 @@
-package com.saga.order.application.messaging.api;
+package com.saga.order.application.api.event;
 
 import java.util.UUID;
 
-public record CreateClaim(
+public record CreateClaimMessage(
         String orderId,
         Integer itemId,
         Integer merchantInventoryId,
