@@ -46,11 +46,34 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
     @Override
     public boolean createOrder(CreateOrder orderRequest) {
         // group basket by merchant id
+        Map<Merchant, List<Product>> productsGroupedByMerchant = groupBasketByMerchants(orderRequest.basket());
+        // create order
+        Order order = createOrder(orderRequest.customerId());
+        // create suborders per merchant
+        order = createSubordersPerMerchant(order, productsGroupedByMerchant);
+        orderRepositoryApi.upsertOrder(order);
+        orderProducerApi.send(order);
+        return true;
+    }
+
+    @Override
+    public void processPayment(Payment payment) {
+        Optional<Order> maybeOrder = orderRepositoryApi.findByOrderId(payment.orderId());
+        if (maybeOrder.isEmpty()) {
+            throw new RuntimeException("Order with id " + payment.orderId() + " not found");
+        }
+        Order order = maybeOrder.get();
+        order = order.updateStatus(OrderDomainStatus.COMPLETED);
+        order = orderRepositoryApi.upsertOrder(order);
+        orderProducerApi.send(order);
+    }
+
+    private Map<Merchant, List<Product>> groupBasketByMerchants(Set<BasketItem> basket) {
         Map<Merchant, List<Product>> productsGroupedByMerchant = new HashMap<>();
-        for (BasketItem item : orderRequest.basket()) {
+        for (BasketItem item : basket) {
             Optional<Product> maybeProduct = merchantProductRepositoryApi.findByIdWithMerchant(item.merchantInventoryId());
             if (maybeProduct.isEmpty()) {
-                return false;
+                throw new RuntimeException("Product with id " + item.merchantInventoryId() + " not found");
             }
             Product product = maybeProduct.get();
             if (product.stockLevel() >= item.amount()) {
@@ -62,7 +85,10 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
                 productsGroupedByMerchant.get(product.merchant()).add(product);
             }
         }
-        // create order
+        return productsGroupedByMerchant;
+    }
+
+    private Order createOrder(UUID customerId) {
         String orderId = RandomStringUtils.randomAlphanumeric(5) + "-" + RandomStringUtils.randomAlphanumeric(2);
         // faking a completed order by setting the status to COMPLETED and confirmedAt and packedAt
         Order order = new Order(
@@ -70,7 +96,7 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
                 OrderDomainStatus.PENDING,
                 orderId,
                 null,
-                orderRequest.customerId(),
+                customerId,
                 BigDecimal.ZERO,
                 null,
                 null
@@ -78,6 +104,10 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
 
         // create suborders per merchant
         order = orderRepositoryApi.upsertOrder(order);
+        return order;
+    }
+
+    private Order createSubordersPerMerchant(Order order, Map<Merchant, List<Product>> productsGroupedByMerchant) {
         Set<Suborder> suborders = new HashSet<>();
         BigDecimal total = BigDecimal.ZERO;
         for (Map.Entry<Merchant, List<Product>> productsOfMerchant : productsGroupedByMerchant.entrySet()) {
@@ -95,20 +125,6 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
         order = order.setSuborders(suborders);
         order = order.setGrandTotal(total);
         order = order.setConfirmedAndPackedAt(LocalDateTime.now().minusDays(2), LocalDateTime.now());
-        orderRepositoryApi.upsertOrder(order);
-        orderProducerApi.send(order);
-        return true;
-    }
-
-    @Override
-    public void processPayment(Payment payment) {
-        Optional<Order> maybeOrder = orderRepositoryApi.findByOrderId(payment.orderId());
-        if (maybeOrder.isEmpty()) {
-            throw new RuntimeException("Order with id " + payment.orderId() + " not found");
-        }
-        Order order = maybeOrder.get();
-        order = order.updateStatus(OrderDomainStatus.COMPLETED);
-        order = orderRepositoryApi.upsertOrder(order);
-        orderProducerApi.send(order);
+        return order;
     }
 }
