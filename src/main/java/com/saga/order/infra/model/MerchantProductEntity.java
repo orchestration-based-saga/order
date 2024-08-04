@@ -24,8 +24,6 @@ public class MerchantProductEntity {
     MerchantEntity merchant;
     String name;
     String description;
-    String ean;
-    Integer product;
     Boolean serviceable;
     @OneToOne
     @JoinColumn(name = "pickup_address", referencedColumnName = "id")

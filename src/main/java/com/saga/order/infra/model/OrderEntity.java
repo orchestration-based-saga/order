@@ -40,15 +40,10 @@ public class OrderEntity {
     BigDecimal grandTotal;
     @Enumerated(EnumType.STRING)
     Currency currency;
-    @CreatedDate
-    @Column(name = "created_at")
-    LocalDateTime createdAt;
     @LastModifiedDate
     @Column(name = "modified_at")
     LocalDateTime modifiedAt;
     LocalDateTime confirmedAt;
     LocalDateTime packedAt;
-    LocalDateTime cancellationDate;
-
 
 }

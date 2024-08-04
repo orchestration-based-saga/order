@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 public record Product(
         Integer merchantInventoryId,
         String name,
-        String ean,
         Boolean serviceable,
         Integer stockLevel,
         Integer reservedLevel,
@@ -18,6 +17,6 @@ public record Product(
 
     public Product calculateReservedLevel(Integer amount){
         Integer totalReserved = amount + reservedLevel;
-        return new Product(merchantInventoryId, name, ean, serviceable, stockLevel, totalReserved, merchant, price);
+        return new Product(merchantInventoryId, name, serviceable, stockLevel, totalReserved, merchant, price);
     }
 }

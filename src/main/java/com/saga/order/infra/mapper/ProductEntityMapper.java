@@ -15,7 +15,6 @@ public interface ProductEntityMapper {
     Merchant toDomain(MerchantEntity merchantEntity);
 
     @Mapping(target = "description", ignore = true)
-    @Mapping(target = "product", ignore = true)
     @Mapping(target = "pickupAddress", ignore = true)
     @Mapping(target = "returnAddress", ignore = true)
     MerchantProductEntity toProductEntity(Product product);

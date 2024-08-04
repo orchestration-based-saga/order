@@ -15,7 +15,6 @@ public record OrderMessage(
         UUID customerId,
         BigDecimal grandTotal,
         LocalDateTime confirmedAt,
-        LocalDateTime packedAt,
-        LocalDateTime cancellationDate
+        LocalDateTime packedAt
 ) {
 }

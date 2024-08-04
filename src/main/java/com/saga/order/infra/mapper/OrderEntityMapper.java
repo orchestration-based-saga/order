@@ -31,7 +31,6 @@ public abstract class OrderEntityMapper {
     @Mapping(target = "orderStatus", source = "status")
     @Mapping(target = "paymentMethod", expression = "java(com.saga.order.infra.model.enums.PaymentMethod.CARD)")
     @Mapping(target = "currency", expression = "java(com.saga.order.infra.model.enums.Currency.RSD)")
-    @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "modifiedAt", ignore = true)
     public abstract OrderEntity toEntity(Order order);
 

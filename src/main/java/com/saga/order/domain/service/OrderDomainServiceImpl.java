@@ -76,10 +76,9 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
                 orderRequest.customerId(),
                 BigDecimal.ZERO,
                 null,
-                null,
                 null
         );
-        // todo set product stock level when order is processed
+
         // create suborders per merchant
         order = orderRepositoryApi.upsertOrder(order);
         Set<Suborder> suborders = new HashSet<>();

@@ -17,23 +17,22 @@ public record Order(
         UUID customerId,
         BigDecimal grandTotal,
         LocalDateTime confirmedAt,
-        LocalDateTime packedAt,
-        LocalDateTime cancellationDate
+        LocalDateTime packedAt
 ) {
 
     public Order setSuborders(Set<Suborder> suborders) {
-        return new Order(id, status, orderId, suborders, customerId, grandTotal, confirmedAt, packedAt, cancellationDate);
+        return new Order(id, status, orderId, suborders, customerId, grandTotal, confirmedAt, packedAt);
     }
 
     public Order setGrandTotal(BigDecimal total) {
-        return new Order(id, status, orderId, suborders, customerId, total, confirmedAt, packedAt, cancellationDate);
+        return new Order(id, status, orderId, suborders, customerId, total, confirmedAt, packedAt);
     }
 
     public Order setConfirmedAndPackedAt(LocalDateTime confirmedAt, LocalDateTime packedAt) {
-        return new Order(id, status, orderId, suborders, customerId, grandTotal, confirmedAt, packedAt, cancellationDate);
+        return new Order(id, status, orderId, suborders, customerId, grandTotal, confirmedAt, packedAt);
     }
 
     public Order updateStatus(OrderDomainStatus status) {
-        return new Order(id, status, orderId, suborders, customerId, grandTotal, confirmedAt, packedAt, cancellationDate);
+        return new Order(id, status, orderId, suborders, customerId, grandTotal, confirmedAt, packedAt);
     }
 }
