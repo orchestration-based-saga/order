@@ -34,12 +34,15 @@ public class OrderDomainServiceImpl implements OrderDomainServiceApi {
         if (!maybeProduct.get().serviceable()) {
             return false;
         }
+        String businessKey = maybeOrder.get().orderId() + "-" +
+                maybeProduct.get().merchantInventoryId() + "-" + RandomStringUtils.randomAlphanumeric(3).toUpperCase();
         orderProducerApi.createClaim(
                 orderId,
                 itemId,
                 maybeProduct.get().merchantInventoryId(),
                 maybeOrder.get().customerId(),
-                maybeProduct.get().merchant().userId());
+                maybeProduct.get().merchant().userId(),
+                businessKey);
         return true;
     }
 

@@ -1,5 +1,7 @@
 package com.saga.order.application.messaging.producer;
 
+import com.saga.order.application.api.enums.WorkflowConstants;
+import com.saga.order.application.api.event.WorkflowStartProcessMessage;
 import com.saga.order.application.mapper.OrderResponseMapper;
 import com.saga.order.application.api.event.CreateClaimMessage;
 import com.saga.order.application.api.event.OrderMessage;
@@ -21,9 +23,20 @@ public class OrderProducer implements OrderProducerApi {
     private final OrderResponseMapper orderResponseMapper;
 
     @Override
-    public void createClaim(String orderId, Integer itemId, Integer merchantInventoryId, UUID customerId, UUID recipientId) {
+    public void createClaim(
+            String orderId,
+            Integer itemId,
+            Integer merchantInventoryId,
+            UUID customerId,
+            UUID recipientId,
+            String businessKey) {
         CreateClaimMessage claim = new CreateClaimMessage(orderId, itemId, merchantInventoryId, customerId, recipientId);
-        streamBridge.send(StreamBindingConstants.CREATE_CLAIM, MessageBuilder.withPayload(claim).build());
+        WorkflowStartProcessMessage message = WorkflowStartProcessMessage.builder()
+                .processId(WorkflowConstants.ITEM_SERVICING)
+                .businessKey(businessKey)
+                .data(claim)
+                .build();
+        streamBridge.send(StreamBindingConstants.START_PROCESS, MessageBuilder.withPayload(message).build());
     }
 
     @Override

@@ -41,5 +41,5 @@ spring:
           content-type: application/json
           group: order_group
         createClaim-out-0:
-          destination: create_claim
+          destination: workflow-start-process
           content-type: application/json
